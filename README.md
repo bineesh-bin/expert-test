@@ -1,3 +1,48 @@
+## Lead Capture Form - Saving Leads to Supabase
+
+The lead capture form in this project now saves lead data directly to the Supabase database when the form is submitted. This includes the lead's name, email, industry, and submission timestamp.
+
+### How it works
+
+- On form submission, the input data is validated.
+- If valid, the lead data is inserted into the `leads` table in Supabase.
+- A confirmation email is sent via a Supabase Edge Function.
+- The form resets and shows a success message.
+
+### Fixes and Code Changes
+
+Two key fixes were made in the lead capture form:
+
+1. **Saving Leads to Supabase Database:**
+   - Added code to insert lead data into the `leads` table in Supabase.
+   - This ensures leads are persisted in the database on form submission.
+   - Errors during insertion are logged and prevent further processing.
+
+2. **Removed Duplicate Confirmation Email Function Call:**
+   - Previously, the `send-confirmation` Supabase function was called twice.
+   - The duplicate call was removed to avoid redundant email sends.
+   - Now, the confirmation email function is invoked only once after saving the lead.
+
+### Supabase Setup
+
+Ensure your Supabase project has a `leads` table with the following columns:
+
+- `id` (UUID or serial primary key)
+- `name` (text)
+- `email` (text)
+- `industry` (text)
+- `submitted_at` (timestamp)
+
+### Notes
+
+- Errors during saving or email sending are logged to the console.
+- You can customize the table name or fields in `LeadCaptureForm.tsx` as needed.
+
+
+
+
+
+
 # Welcome to your Lovable project
 
 ## Project info
