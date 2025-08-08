@@ -1,44 +1,42 @@
-## Lead Capture Form - Saving Leads to Supabase
+## Overview
+This document outlines the major bugs that were discovered and resolved in the
+Lead Capture Form
+---
+## Critical Fixes Implemented
+### 1. Saving Leads to Supabase Database
+**File**: src/components/LeadCaptureForm.tsx
+**Severity**: Critical
+**Status**: Fixed
+#### Problem
+Lead data was not being saved persistently in the Supabase database on form submission, risking data loss.
+#### Root Cause
+Lead data insertion code was missing or incomplete, causing leads not to be stored.
+#### Fix
+Added code to insert lead data into the `leads` table in Supabase, ensuring persistence.
 
-The lead capture form in this project now saves lead data directly to the Supabase database when the form is submitted. This includes the lead's name, email, industry, and submission timestamp.
+#### Impact
+-
+Leads are now saved reliably in the database.
+-
+Improved data integrity and follow-up capability.
 
-### How it works
-
-- On form submission, the input data is validated.
-- If valid, the lead data is inserted into the `leads` table in Supabase.
-- A confirmation email is sent via a Supabase Edge Function.
-- The form resets and shows a success message.
-
-### Fixes and Code Changes
-
-Two key fixes were made in the lead capture form:
-
-1. **Saving Leads to Supabase Database:**
-   - Added code to insert lead data into the `leads` table in Supabase.
-   - This ensures leads are persisted in the database on form submission.
-   - Errors during insertion are logged and prevent further processing.
-
-2. **Removed Duplicate Confirmation Email Function Call:**
-   - Previously, the `send-confirmation` Supabase function was called twice.
-   - The duplicate call was removed to avoid redundant email sends.
-   - Now, the confirmation email function is invoked only once after saving the lead.
-
-### Supabase Setup
-
-Ensure your Supabase project has a `leads` table with the following columns:
-
-- `id` (UUID or serial primary key)
-- `name` (text)
-- `email` (text)
-- `industry` (text)
-- `submitted_at` (timestamp)
-
-### Notes
-
-- Errors during saving or email sending are logged to the console.
-- You can customize the table name or fields in `LeadCaptureForm.tsx` as needed.
+### 2. Removed Duplicate Confirmation Email Function Call
+**File**: src/components/LeadCaptureForm.tsx
+**Severity**: Medium
+**Status**: Fixed
+#### Problem
+The confirmation email function was called twice, causing duplicate emails to be sent.
+#### Root Cause
+Duplicate invocation of the `send-confirmation` Supabase function.
+#### Fix
+Removed the duplicate call so the confirmation email function is invoked only once after saving the lead.
 
 
+#### Impact
+-
+No more duplicate confirmation emails.
+-
+Better user experience and reduced email spam.
 
 
 
