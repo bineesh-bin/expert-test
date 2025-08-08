@@ -1,42 +1,63 @@
+---
 ## Overview
+
 This document outlines the major bugs that were discovered and resolved in the
 Lead Capture Form
 ---
+
 ## Critical Fixes Implemented
+
 ### 1. Saving Leads to Supabase Database
-**File**: src/components/LeadCaptureForm.tsx
-**Severity**: Critical
+
+**File**: [src/components/LeadCaptureForm.tsx](src/components/LeadCaptureForm.tsx)  
+
+**Severity**: Critical  
 **Status**: Fixed
+
 #### Problem
+
 Lead data was not being saved persistently in the Supabase database on form submission, risking data loss.
+
 #### Root Cause
+
 Lead data insertion code was missing or incomplete, causing leads not to be stored.
+
 #### Fix
+
 Added code to insert lead data into the `leads` table in Supabase, ensuring persistence.
 
-#### Impact
--
-Leads are now saved reliably in the database.
--
-Improved data integrity and follow-up capability.
 
-### 2. Removed Duplicate Confirmation Email Function Call
-**File**: src/components/LeadCaptureForm.tsx
-**Severity**: Medium
+#### Impact
+
+  Leads are now saved reliably in the database.
+
+  Improved data integrity and follow-up capability.
+
+### 2.Removed Duplicate Confirmation Email Function Call
+
+**File**: [src/components/LeadCaptureForm.tsx](src/components/LeadCaptureForm.tsx)  
+
+**Severity**: Medium  
 **Status**: Fixed
+
 #### Problem
+
 The confirmation email function was called twice, causing duplicate emails to be sent.
+
 #### Root Cause
+
 Duplicate invocation of the `send-confirmation` Supabase function.
+
 #### Fix
+
 Removed the duplicate call so the confirmation email function is invoked only once after saving the lead.
 
 
 #### Impact
--
-No more duplicate confirmation emails.
--
-Better user experience and reduced email spam.
+
+  No more duplicate confirmation emails.
+
+  Better user experience and reduced email spam.
 
 
 
